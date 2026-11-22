@@ -1,0 +1,43 @@
+- name: "Site {{ s }}: variables"
+  ansible.builtin.set_fact:
+    kc: "{{ kube_dir }}/site-{{ s }}.yaml"
+    renv: "{{ labenv | combine({'SITE': s, 'SITE_NAME': 'site-' ~ s, 'METALLB_POOL': metallb_pool[s],
+              'S3_ENDPOINT': 'http://' ~ mgmt_ip ~ ':9000', 'MGMT_IP': mgmt_ip, 'WITNESS_URL': 'http://' ~ mgmt_ip ~ ':8090',
+              'APP_IMAGE': app_image, 'APP_VIP': app_vip[s], 'DB_SIZE': '5Gi', 'DB_STORAGE_CLASS': 'longhorn',
+              'DB_INSTANCES': '3' if s == 'a' else '2', 'SITE_A_DB_HOST': db_replication_vip.a}) }}"
+
+- name: "Site {{ s }}: MetalLB, Longhorn, kube-state-metrics, Alloy, Velero, CloudNativePG"
+  ansible.builtin.shell: |
+    set -euo pipefail
+    export KUBECONFIG={{ kc }}
+    helm upgrade --install metallb metallb/metallb -n metallb-system --create-namespace --version {{ chart_versions.metallb }} --wait
+    python3 {{ playbook_dir }}/../tools/render.py {{ playbook_dir }}/../k8s/platform/metallb-pool.yaml | kubectl apply -f -
+    helm upgrade --install longhorn longhorn/longhorn -n longhorn-system --create-namespace --version {{ chart_versions.longhorn }} \
+      -f {{ playbook_dir }}/../k8s/platform/longhorn-values.yaml --wait --timeout 15m
+    python3 {{ playbook_dir }}/../tools/render.py {{ playbook_dir }}/../k8s/platform/longhorn-s3.yaml | kubectl apply -f -
+    helm upgrade --install kube-state-metrics prometheus-community/kube-state-metrics -n monitoring --create-namespace \
+      --version {{ chart_versions.kube_state_metrics }} --wait
+    python3 {{ playbook_dir }}/../tools/render.py {{ playbook_dir }}/../k8s/platform/alloy-values.yaml > /tmp/alloy-{{ s }}.yaml
+    helm upgrade --install alloy grafana/alloy -n monitoring --version {{ chart_versions.alloy }} -f /tmp/alloy-{{ s }}.yaml --wait
+    python3 {{ playbook_dir }}/../tools/render.py {{ playbook_dir }}/../k8s/platform/velero-values.yaml > /tmp/velero-{{ s }}.yaml
+    helm upgrade --install velero vmware-tanzu/velero -n velero --create-namespace --version {{ chart_versions.velero }} -f /tmp/velero-{{ s }}.yaml --wait
+    rm -f /tmp/alloy-{{ s }}.yaml /tmp/velero-{{ s }}.yaml
+    kubectl apply --server-side -f {{ cnpg_manifest }}
+    kubectl -n cnpg-system rollout status deploy/cnpg-controller-manager --timeout=300s
+    for f in namespace secrets; do python3 {{ playbook_dir }}/../tools/render.py {{ playbook_dir }}/../k8s/base/$f.yaml | kubectl apply -f -; done
+  args: {executable: /bin/bash}
+  environment: "{{ renv }}"
+  changed_when: true
+
+- name: "Site A: primary database"
+  when: s == 'a'
+  ansible.builtin.shell: |
+    set -euo pipefail
+    export KUBECONFIG={{ kc }}
+    python3 {{ playbook_dir }}/../tools/render.py {{ playbook_dir }}/../k8s/site-primary/cluster.yaml | \
+      sed 's#^  type: LoadBalancer#  type: LoadBalancer\n  loadBalancerIP: {{ db_replication_vip.a }}#' | kubectl apply -f -
+    kubectl -n c2 wait cluster/c2db --for=condition=Ready --timeout=15m
+    python3 {{ playbook_dir }}/../tools/render.py {{ playbook_dir }}/../k8s/base/c2board.yaml | kubectl apply -f -
+  args: {executable: /bin/bash}
+  environment: "{{ renv }}"
+  changed_when: true

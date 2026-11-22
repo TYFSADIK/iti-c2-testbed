@@ -1,0 +1,62 @@
+- name: Router packages
+  ansible.builtin.apt:
+    name: [wireguard, nftables, dnsmasq]
+
+- name: IP forwarding
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_set: true
+
+- name: WireGuard key
+  ansible.builtin.shell: |
+    set -e
+    umask 077
+    [ -f /etc/wireguard/private.key ] || wg genkey > /etc/wireguard/private.key
+    wg pubkey < /etc/wireguard/private.key
+  args: {executable: /bin/bash}
+  register: wg_pub
+  changed_when: false
+
+- name: Remember public key
+  ansible.builtin.set_fact:
+    wg_public_key: "{{ wg_pub.stdout }}"
+
+- name: Read private key
+  ansible.builtin.slurp:
+    src: /etc/wireguard/private.key
+  register: wg_priv
+
+- name: WireGuard mesh config
+  ansible.builtin.template:
+    src: wg0.conf.j2
+    dest: /etc/wireguard/wg0.conf
+    mode: "0600"
+  notify: restart wg
+
+- name: nftables rules
+  ansible.builtin.template:
+    src: nftables.conf.j2
+    dest: /etc/nftables.conf
+    mode: "0644"
+  notify: reload nftables
+
+- name: dnsmasq for the site (c2.lab goes to the site C CoreDNS)
+  ansible.builtin.template:
+    src: dnsmasq.conf.j2
+    dest: /etc/dnsmasq.d/site.conf
+    mode: "0644"
+  notify: restart dnsmasq
+
+- name: WAN fault control script
+  ansible.builtin.copy:
+    src: wan-impair
+    dest: /usr/local/sbin/wan-impair
+    mode: "0755"
+
+- name: Services on
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop: [nftables, wg-quick@wg0, dnsmasq]

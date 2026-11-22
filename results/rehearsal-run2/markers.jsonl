@@ -1,0 +1,6 @@
+{"scenario": "baseline", "fault": 1795368459.384, "end": 1795368579.494, "check_loss": true}
+{"scenario": "app pod killed", "fault": 1795368579.517, "end": 1795368640.029, "check_loss": true}
+{"scenario": "database primary pod killed", "fault": 1795368640.054, "end": 1795368730.458, "check_loss": true}
+{"scenario": "degraded WAN (80 ms, 2% loss)", "fault": 1795368732.103, "end": 1795368852.431, "check_loss": true}
+{"scenario": "witness (site C) lost for 60 s", "fault": 1795368888.831, "end": 1795369018.707, "check_loss": true}
+{"scenario": "site A lost (network cut)", "fault": 1795369018.734, "end": 1795369199.563, "check_loss": true}

@@ -1,0 +1,39 @@
+# Site B: a CloudNativePG replica cluster that streams from site A.
+# Promote with: kubectl -n c2 patch cluster c2db --type merge -p '{"spec":{"replica":{"enabled":false}}}'
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: c2db
+  namespace: c2
+spec:
+  instances: ${DB_INSTANCES}
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.4
+  storage:
+    size: ${DB_SIZE}
+    storageClass: ${DB_STORAGE_CLASS}
+  replica:
+    enabled: true
+    source: site-a
+  bootstrap:
+    pg_basebackup:
+      source: site-a
+      # Same owner secret as site A: without it the operator resets the app
+      # password to a generated one when this cluster is promoted (found in rehearsal run 1).
+      database: app
+      owner: app
+      secret:
+        name: c2-db-credentials
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+  externalClusters:
+    - name: site-a
+      connectionParameters:
+        host: ${SITE_A_DB_HOST}
+        port: "5432"
+        user: streaming_replica
+        dbname: postgres
+        sslmode: verify-ca
+      sslKey: {name: site-a-replication, key: tls.key}
+      sslCert: {name: site-a-replication, key: tls.crt}
+      sslRootCert: {name: site-a-ca, key: ca.crt}

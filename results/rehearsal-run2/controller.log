@@ -1,0 +1,84 @@
+event controller started, active site a, stale none
+event a unhealthy (code=503, db=primary)
+event a recovered before failover
+event a unhealthy (code=None, db=-)
+event a recovered before failover
+event a unhealthy (code=None, db=-)
+event a recovered before failover
+event a unhealthy (code=None, db=-)
+event a recovered before failover
+event a unhealthy (code=None, db=-)
+event a recovered before failover
+event a unhealthy (code=None, db=-)
+event controller started, active site a, stale none
+event a unhealthy (code=503, db=primary)
+event a recovered before failover
+event a unhealthy (code=None, db=-)
+alert a down for 92 s and no standby is reachable
+alert a down for 93 s and no standby is reachable
+alert a down for 96 s and no standby is reachable
+alert a down for 97 s and no standby is reachable
+alert a down for 100 s and no standby is reachable
+alert a down for 101 s and no standby is reachable
+alert a down for 104 s and no standby is reachable
+alert a down for 106 s and no standby is reachable
+alert a down for 109 s and no standby is reachable
+alert a down for 110 s and no standby is reachable
+alert a down for 113 s and no standby is reachable
+alert a down for 114 s and no standby is reachable
+alert a down for 117 s and no standby is reachable
+alert a down for 118 s and no standby is reachable
+alert a down for 121 s and no standby is reachable
+alert a down for 122 s and no standby is reachable
+alert a down for 125 s and no standby is reachable
+alert a down for 126 s and no standby is reachable
+alert a down for 129 s and no standby is reachable
+alert a down for 130 s and no standby is reachable
+alert a down for 133 s and no standby is reachable
+alert a down for 134 s and no standby is reachable
+alert a down for 137 s and no standby is reachable
+alert a down for 138 s and no standby is reachable
+alert a down for 141 s and no standby is reachable
+alert a down for 142 s and no standby is reachable
+alert a down for 145 s and no standby is reachable
+alert a down for 146 s and no standby is reachable
+alert a down for 149 s and no standby is reachable
+alert a down for 151 s and no standby is reachable
+alert a down for 154 s and no standby is reachable
+alert a down for 155 s and no standby is reachable
+alert a down for 158 s and no standby is reachable
+alert a down for 159 s and no standby is reachable
+alert a down for 162 s and no standby is reachable
+alert a down for 163 s and no standby is reachable
+alert a down for 166 s and no standby is reachable
+alert a down for 167 s and no standby is reachable
+alert a down for 170 s and no standby is reachable
+alert a down for 171 s and no standby is reachable
+alert a down for 174 s and no standby is reachable
+alert a down for 175 s and no standby is reachable
+alert a down for 178 s and no standby is reachable
+alert a down for 179 s and no standby is reachable
+alert a down for 182 s and no standby is reachable
+alert a down for 183 s and no standby is reachable
+alert a down for 186 s and no standby is reachable
+alert a down for 187 s and no standby is reachable
+alert a down for 191 s and no standby is reachable
+alert a down for 192 s and no standby is reachable
+alert a down for 195 s and no standby is reachable
+alert a down for 196 s and no standby is reachable
+alert a down for 199 s and no standby is reachable
+alert a down for 200 s and no standby is reachable
+alert a down for 203 s and no standby is reachable
+alert a down for 204 s and no standby is reachable
+alert a down for 207 s and no standby is reachable
+alert a down for 208 s and no standby is reachable
+alert a down for 211 s and no standby is reachable
+alert a down for 212 s and no standby is reachable
+alert a down for 215 s and no standby is reachable
+alert a down for 216 s and no standby is reachable
+alert a down for 219 s and no standby is reachable
+alert a down for 220 s and no standby is reachable
+alert a down for 223 s and no standby is reachable
+alert a down for 224 s and no standby is reachable
+alert a down for 227 s and no standby is reachable
+alert a down for 228 s and no standby is reachable

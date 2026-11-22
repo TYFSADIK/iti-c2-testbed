@@ -1,0 +1,27 @@
+# Backup restore drill: a new cluster from site A's base backup + WAL in the S3 store,
+# built at any site. Measures how long a restore from backup takes (worst case:
+# both sites lost their databases).
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: c2db-restore
+  namespace: c2
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.4
+  storage:
+    size: ${DB_SIZE}
+    storageClass: ${DB_STORAGE_CLASS}
+  bootstrap:
+    recovery:
+      source: site-a-backup
+  externalClusters:
+    - name: site-a-backup
+      barmanObjectStore:
+        serverName: c2db
+        destinationPath: s3://c2-backups/site-a
+        endpointURL: ${S3_ENDPOINT}
+        s3Credentials:
+          accessKeyId: {name: c2-backup-s3, key: ACCESS_KEY_ID}
+          secretAccessKey: {name: c2-backup-s3, key: SECRET_ACCESS_KEY}
+        wal: {compression: gzip}

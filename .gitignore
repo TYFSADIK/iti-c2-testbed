@@ -1,0 +1,11 @@
+secrets/
+results/rehearsal/kube/
+results/rehearsal/.env
+results/rehearsal/*.crt
+results/rehearsal/*.key
+terraform/.terraform/
+terraform/*.tfstate*
+terraform/terraform.tfvars
+ansible/inventory.yml
+__pycache__/
+.pytest_cache/

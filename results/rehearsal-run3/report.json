@@ -1,0 +1,68 @@
+[
+  {
+    "attempts": 240,
+    "ok": 240,
+    "availability_pct": 100.0,
+    "rto_s": 0.0,
+    "longest_outage_s": 0.0,
+    "sites": "a",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "baseline"
+  },
+  {
+    "attempts": 121,
+    "ok": 121,
+    "availability_pct": 100.0,
+    "rto_s": 0.0,
+    "longest_outage_s": 0.0,
+    "sites": "a",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "app pod killed"
+  },
+  {
+    "attempts": 180,
+    "ok": 180,
+    "availability_pct": 100.0,
+    "rto_s": 0.0,
+    "longest_outage_s": 0.0,
+    "sites": "a",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "database primary pod killed"
+  },
+  {
+    "attempts": 86,
+    "ok": 37,
+    "availability_pct": 43.02,
+    "rto_s": 107.1,
+    "longest_outage_s": 99.4,
+    "sites": "a -> b",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "degraded WAN (80 ms, 2% loss)"
+  },
+  {
+    "attempts": 225,
+    "ok": 117,
+    "availability_pct": 52.0,
+    "rto_s": 73.7,
+    "longest_outage_s": 54.1,
+    "sites": "b",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "witness (site C) lost for 60 s"
+  },
+  {
+    "attempts": 364,
+    "ok": 360,
+    "availability_pct": 98.9,
+    "rto_s": 37.2,
+    "longest_outage_s": 2.0,
+    "sites": "b",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "site A lost (network cut)"
+  }
+]

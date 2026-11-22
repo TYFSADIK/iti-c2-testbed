@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c2board
+  namespace: c2
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: c2board}}
+  template:
+    metadata:
+      labels: {app: c2board}
+    spec:
+      topologySpreadConstraints:
+        - {maxSkew: 1, topologyKey: kubernetes.io/hostname, whenUnsatisfiable: ScheduleAnyway, labelSelector: {matchLabels: {app: c2board}}}
+      securityContext: {runAsNonRoot: true, runAsUser: 10001}
+      containers:
+        - name: c2board
+          image: ${APP_IMAGE}
+          imagePullPolicy: IfNotPresent
+          command: ["python", "c2board.py"]
+          env:
+            - {name: SITE, value: "${SITE}"}
+            - {name: WITNESS_URL, value: "${WITNESS_URL}"}
+            - {name: LEASE_TTL, value: "10"}
+            - {name: LEASE_POLL, value: "2"}
+          envFrom:
+            - secretRef: {name: c2board-db}
+          ports: [{containerPort: 8080}]
+          readinessProbe:               # up = in the Service, even as a standby; /healthz says if it can write
+            tcpSocket: {port: 8080}
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket: {port: 8080}
+            periodSeconds: 10
+          resources:
+            requests: {cpu: 20m, memory: 48Mi}
+            limits: {memory: 128Mi}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: c2board
+  namespace: c2
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "${APP_VIP}"
+spec:
+  type: LoadBalancer
+  selector: {app: c2board}
+  ports: [{name: http, port: 80, targetPort: 8080}]

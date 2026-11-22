@@ -1,0 +1,136 @@
+# Site C (management): witness and failover controller, global DNS, backup store,
+# monitoring and logs. Runs on the mgmt VM in the Proxmox build and
+# on the laptop in the local rehearsal (local/rehearse.sh).
+name: c2mgmt
+
+networks:
+  c2net:
+    external: true
+    name: ${C2_NETWORK:-c2net}
+
+services:
+  s3:
+    # S3-compatible backup store (SeaweedFS). MinIO stopped publishing free images in 2025.
+    image: chrislusf/seaweedfs:3.80
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - printf '{"identities":[{"name":"c2","credentials":[{"accessKey":"%s","secretKey":"%s"}],"actions":["Admin","Read","Write","List","Tagging"]}]}' "$$S3_ACCESS_KEY" "$$S3_SECRET_KEY" > /tmp/s3.json &&
+        exec weed server -dir=/data -s3 -s3.port=9000 -s3.config=/tmp/s3.json -master.volumeSizeLimitMB=1024 -volume.max=0
+    environment:
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY:?set in .env}
+      S3_SECRET_KEY: ${S3_SECRET_KEY:?set in .env}
+    volumes: [s3:/data]
+    networks:
+      c2net:
+        ipv4_address: "${S3_IP:-172.30.255.20}"
+    restart: unless-stopped
+
+  s3-init:
+    image: chrislusf/seaweedfs:3.80
+    depends_on: [s3]
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - for i in $$(seq 1 60); do echo "s3.bucket.create -name c2-backups" | weed shell -master=s3:9333 2>&1 | grep -qv "error" && break; sleep 2; done;
+        echo "s3.bucket.list" | weed shell -master=s3:9333
+    networks: [c2net]
+
+  dns:
+    image: coredns/coredns:1.11.3
+    command: ["-conf", "/etc/coredns/Corefile"]
+    volumes:
+      - ./coredns/Corefile:/etc/coredns/Corefile:ro
+      - dns:/etc/coredns/zones
+    networks:
+      c2net:
+        ipv4_address: "${DNS_IP:-172.30.255.53}"
+    restart: unless-stopped
+
+  controller:
+    image: ${APP_IMAGE:-c2-services:local}
+    command: ["python", "controller.py"]
+    environment:
+      SITES: ${SITES:?site health URLs, e.g. a=http://10.20.0.80,b=http://10.30.0.80}
+      SITE_IPS: ${SITE_IPS:?e.g. a=10.20.0.80,b=10.30.0.80}
+      ACTIVE: ${ACTIVE:-a}
+      FAIL_AFTER: ${FAIL_AFTER:-90}
+      LEASE_TTL: "10"
+      LEASE_POLL: "2"
+      DNS_HOSTS_FILE: /zones/hosts
+      PROMOTE_CMD_B: >-
+        kubectl --kubeconfig /kube/site-b.yaml -n c2 patch cluster c2db --type merge -p '{"spec":{"replica":{"enabled":false}}}'
+      PROMOTE_CMD_A: >-
+        kubectl --kubeconfig /kube/site-a.yaml -n c2 patch cluster c2db --type merge -p '{"spec":{"replica":{"enabled":false}}}'
+      RESEED_AFTER: ${RESEED_AFTER:-180}
+      # Rebuild a broken standby database from the active site (only ever run on a non-stale standby)
+      RESEED_CMD_B: >-
+        sh -c 'K="kubectl --kubeconfig /kube/site-b.yaml -n c2";
+        $$K delete cluster c2db --wait=true &&
+        $$K wait --for=delete pvc -l cnpg.io/cluster=c2db --timeout=180s;
+        $$K apply -f /kube/site-b-db.yaml'
+      EVENT_LOG: /data/events.jsonl
+    volumes:
+      - dns:/zones
+      - ${KUBE_DIR:-./kube}:/kube:ro
+      - ${RUN_DIR:-./run}:/data
+    user: "0"
+    networks:
+      c2net:
+        ipv4_address: "${CONTROLLER_IP:-172.30.255.10}"
+    restart: unless-stopped
+
+  prober:
+    image: ${APP_IMAGE:-c2-services:local}
+    command: ["python", "prober.py"]
+    environment:
+      DNS_SERVER: ${DNS_IP:-172.30.255.53}
+      DNS_NAME: c2.lab
+      INTERVAL: "0.5"
+      CLIENT: ${PROBE_CLIENT:-prober}
+      OUT: /data/probe.csv
+      METRICS_PORT: "9105"
+    volumes: ["${RUN_DIR:-./run}:/data"]
+    user: "0"
+    networks:
+      c2net:
+        ipv4_address: "${PROBER_IP:-172.30.255.11}"
+    depends_on: [controller, dns]
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--web.enable-remote-write-receiver", "--storage.tsdb.retention.time=30d"]
+    volumes: ["./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro", "prometheus:/prometheus"]
+    networks:
+      c2net:
+        ipv4_address: "${PROMETHEUS_IP:-172.30.255.30}"
+    ports: ["127.0.0.1:9090:9090"]
+    restart: unless-stopped
+
+  loki:
+    image: grafana/loki:3.2.1
+    command: ["-config.file=/etc/loki/loki.yml"]
+    volumes: ["./loki/loki.yml:/etc/loki/loki.yml:ro", "loki:/loki"]
+    networks:
+      c2net:
+        ipv4_address: "${LOKI_IP:-172.30.255.31}"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana-oss:11.3.1
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?set in .env}
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/availability.json
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana:/var/lib/grafana
+    networks: [c2net]
+    ports: ["127.0.0.1:3000:3000"]
+    restart: unless-stopped
+
+volumes:
+  s3:
+  dns:
+  prometheus:
+  loki:
+  grafana:

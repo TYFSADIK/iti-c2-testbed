@@ -1,0 +1,7 @@
+{"scenario": "baseline", "fault": 1795371154.404, "end": 1795371274.483, "check_loss": true}
+{"scenario": "app pod killed", "fault": 1795371274.511, "end": 1795371335.004, "check_loss": true}
+{"scenario": "database primary pod killed", "fault": 1795371335.028, "end": 1795371425.575, "check_loss": true}
+{"scenario": "node powered off (k3d-site-a-agent-0)", "fault": 1795371426.102, "end": 1795371579.374, "check_loss": true}
+{"scenario": "degraded WAN (80 ms, 2% loss)", "fault": 1795371644.871, "end": 1795371764.944, "check_loss": true}
+{"scenario": "witness (site C) lost for 60 s", "fault": 1795371786.271, "end": 1795371898.145, "check_loss": true}
+{"scenario": "site A lost (network cut)", "fault": 1795371898.169, "end": 1795372078.883, "check_loss": true}

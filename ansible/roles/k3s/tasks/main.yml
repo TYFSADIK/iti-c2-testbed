@@ -1,0 +1,54 @@
+# One HA K3s cluster per site: three servers with embedded etcd (survives one node down).
+- name: Longhorn data disk
+  community.general.filesystem:
+    dev: /dev/sdb
+    fstype: ext4
+
+- name: Mount the data disk
+  ansible.posix.mount:
+    path: /var/lib/longhorn
+    src: /dev/sdb
+    fstype: ext4
+    opts: defaults,noatime
+    state: mounted
+
+- name: Load the cluster token
+  ansible.builtin.set_fact:
+    k3s_token: "{{ lookup('ansible.builtin.ini', 'K3S_TOKEN_' ~ (site | upper), file=secrets_file, type='properties') }}"
+    first: "{{ groups['k3s_' ~ site] | first }}"
+
+- name: Install K3s (first server initialises etcd)
+  ansible.builtin.shell: |
+    set -e
+    curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION={{ k3s_version }} K3S_TOKEN={{ k3s_token }} sh -s - server \
+      {% if inventory_hostname == first %}--cluster-init{% else %}--server https://{{ hostvars[first].ansible_host }}:6443{% endif %} \
+      --disable servicelb --disable traefik --disable local-storage \
+      --node-label topology.kubernetes.io/zone=site-{{ site }} \
+      --tls-san {{ ansible_host }} --write-kubeconfig-mode 0640
+  args:
+    executable: /bin/bash
+    creates: /usr/local/bin/k3s
+  throttle: 1
+
+- name: Wait for the node to be Ready
+  ansible.builtin.command: k3s kubectl wait --for=condition=Ready node/{{ inventory_hostname }} --timeout=300s
+  changed_when: false
+
+- name: Fetch the kubeconfig (first server only)
+  when: inventory_hostname == first
+  block:
+    - ansible.builtin.slurp:
+        src: /etc/rancher/k3s/k3s.yaml
+      register: kc
+    - ansible.builtin.file:
+        path: "{{ kube_dir }}"
+        state: directory
+        mode: "0700"
+      delegate_to: localhost
+      become: false
+    - ansible.builtin.copy:
+        content: "{{ kc.content | b64decode | replace('127.0.0.1', ansible_host) | replace(': default', ': site-' ~ site) }}"
+        dest: "{{ kube_dir }}/site-{{ site }}.yaml"
+        mode: "0600"
+      delegate_to: localhost
+      become: false

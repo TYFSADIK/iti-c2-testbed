@@ -1,0 +1,6 @@
+- name: restart wg
+  ansible.builtin.systemd: {name: wg-quick@wg0, state: restarted}
+- name: reload nftables
+  ansible.builtin.command: nft -f /etc/nftables.conf
+- name: restart dnsmasq
+  ansible.builtin.systemd: {name: dnsmasq, state: restarted}

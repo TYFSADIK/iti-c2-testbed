@@ -1,0 +1,38 @@
+# Whole lab: ansible-playbook site.yml   (after terraform apply and ./tools/gen-secrets.sh)
+- name: Base configuration
+  hosts: all
+  become: true
+  roles: [common]
+
+- name: Site routers, WireGuard mesh, WAN fault controls
+  hosts: routers
+  become: true
+  roles: [router]
+
+- name: K3s clusters, one per site
+  hosts: k3s
+  become: true
+  roles: [k3s]
+
+- name: Site C management stack
+  hosts: mgmt
+  become: true
+  roles: [mgmt]
+
+- name: Cluster platform and workload (runs from this machine with the kubeconfigs)
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles: [platform]
+
+- name: Hand the kubeconfigs and the standby database manifest to the failover controller
+  hosts: mgmt
+  become: true
+  tasks:
+    - ansible.builtin.copy:
+        src: "{{ kube_dir }}/"
+        dest: /opt/c2mgmt/kube/
+        mode: "0600"
+    - ansible.builtin.command: docker compose up -d --force-recreate controller
+      args: {chdir: /opt/c2mgmt}
+      changed_when: true

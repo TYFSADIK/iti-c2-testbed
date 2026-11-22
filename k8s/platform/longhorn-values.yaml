@@ -1,0 +1,14 @@
+# Longhorn: three replicas inside the site (one per node), nightly backups to the S3 store at site C.
+defaultSettings:
+  defaultReplicaCount: 3
+  defaultDataPath: /var/lib/longhorn
+  replicaSoftAntiAffinity: false
+  nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+  backupTarget: s3://c2-longhorn@us-east-1/
+  backupTargetCredentialSecret: longhorn-s3
+persistence:
+  defaultClass: true
+  defaultClassReplicaCount: 3
+  reclaimPolicy: Retain
+csi:
+  kubeletRootDir: /var/lib/kubelet

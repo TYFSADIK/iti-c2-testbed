@@ -1,0 +1,25 @@
+{"t": 1795371139.0413837, "kind": "event", "msg": "controller started, active site a, stale none"}
+{"t": 1795371140.8399777, "kind": "event", "msg": "a unhealthy (code=503, db=primary)"}
+{"t": 1795371141.8582807, "kind": "event", "msg": "a recovered before failover"}
+{"t": 1795371384.28504, "kind": "event", "msg": "a unhealthy (code=503, db=down)"}
+{"t": 1795371385.3068295, "kind": "event", "msg": "a recovered before failover"}
+{"t": 1795371427.421392, "kind": "event", "msg": "a unhealthy (code=503, db=down)"}
+{"t": 1795371470.1802812, "kind": "event", "msg": "a recovered before failover"}
+{"t": 1795371495.4698775, "kind": "event", "msg": "a unhealthy (code=None, db=-)"}
+{"t": 1795371496.4805946, "kind": "event", "msg": "a recovered before failover"}
+{"t": 1795371536.0207083, "kind": "event", "msg": "a unhealthy (code=None, db=-)"}
+{"t": 1795371537.0430055, "kind": "event", "msg": "a recovered before failover"}
+{"t": 1795371575.649334, "kind": "event", "msg": "a unhealthy (code=None, db=-)"}
+{"t": 1795371576.6622725, "kind": "event", "msg": "a recovered before failover"}
+{"t": 1795371596.7979414, "kind": "event", "msg": "a unhealthy (code=None, db=-)"}
+{"t": 1795371597.8392558, "kind": "event", "msg": "a recovered before failover"}
+{"t": 1795371858.514064, "kind": "event", "msg": "controller started, active site a, stale none"}
+{"t": 1795371858.610827, "kind": "event", "msg": "a unhealthy (code=503, db=primary)"}
+{"t": 1795371860.6352742, "kind": "event", "msg": "a recovered before failover"}
+{"t": 1795371901.1373277, "kind": "event", "msg": "a unhealthy (code=None, db=-)"}
+{"t": 1795371991.2464828, "kind": "event", "msg": "DNS c2.lab -> 172.30.0.10 (b)"}
+{"t": 1795371991.2517722, "kind": "event", "msg": "failover a -> b after 90 s of failure"}
+{"t": 1795371993.90298, "kind": "event", "msg": "promote b: exit 0 cluster.postgresql.cnpg.io/c2db patched"}
+{"t": 1795371995.325987, "kind": "event", "msg": "b is serving writes, failover took 94.2 s"}
+{"t": 1795372176.5894876, "kind": "event", "msg": "b unhealthy (code=503, db=down)"}
+{"t": 1795372186.8193443, "kind": "event", "msg": "b recovered before failover"}

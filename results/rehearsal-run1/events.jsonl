@@ -1,0 +1,293 @@
+{"t": 1795366751.2968373, "kind": "event", "msg": "controller started, active site a"}
+{"t": 1795366752.4376345, "kind": "event", "msg": "a unhealthy (code=503, db=primary)"}
+{"t": 1795366753.982263, "kind": "event", "msg": "a recovered before failover"}
+{"t": 1795367112.4597428, "kind": "event", "msg": "a unhealthy (code=None, db=-)"}
+{"t": 1795367133.5659194, "kind": "event", "msg": "DNS c2.lab -> 172.30.0.8 (b)"}
+{"t": 1795367133.5720663, "kind": "event", "msg": "failover a -> b after 21 s of failure"}
+{"t": 1795367135.8694336, "kind": "event", "msg": "promote b: exit 0 cluster.postgresql.cnpg.io/c2db patched"}
+{"t": 1795367139.605038, "kind": "event", "msg": "b is serving writes, failover took 27.1 s"}
+{"t": 1795367319.5528514, "kind": "event", "msg": "b unhealthy (code=503, db=down)"}
+{"t": 1795367340.934613, "kind": "event", "msg": "DNS c2.lab -> 172.30.0.3 (a)"}
+{"t": 1795367340.9434545, "kind": "event", "msg": "failover b -> a after 21 s of failure"}
+{"t": 1795367343.7133791, "kind": "event", "msg": "a is serving writes, failover took 24.2 s"}
+{"t": 1795367345.11105, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367349.8711412, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367354.4714391, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367359.584588, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367365.7404656, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367370.6193004, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367376.0482767, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367380.6424406, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367385.6441736, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367390.9907017, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367396.0403824, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367401.1447997, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367406.759116, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367411.270313, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367416.435582, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367421.2145298, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367426.4052298, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367430.8177867, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367435.1737702, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367439.6358328, "kind": "event", "msg": "promote a: exit 1 The Cluster \"c2db\" is invalid: spec.replica.source: Invalid value: \"\": spec.replica.source in body should be at least 1 chars long"}
+{"t": 1795367469.5067008, "kind": "event", "msg": "a unhealthy (code=None, db=-)"}
+{"t": 1795367490.7646313, "kind": "alert", "msg": "a down for 21 s and no standby is reachable"}
+{"t": 1795367493.7933598, "kind": "alert", "msg": "a down for 24 s and no standby is reachable"}
+{"t": 1795367496.820665, "kind": "alert", "msg": "a down for 27 s and no standby is reachable"}
+{"t": 1795367499.8523798, "kind": "alert", "msg": "a down for 30 s and no standby is reachable"}
+{"t": 1795367502.887928, "kind": "alert", "msg": "a down for 33 s and no standby is reachable"}
+{"t": 1795367504.0039036, "kind": "alert", "msg": "a down for 34 s and no standby is reachable"}
+{"t": 1795367507.1390975, "kind": "alert", "msg": "a down for 38 s and no standby is reachable"}
+{"t": 1795367510.1874626, "kind": "alert", "msg": "a down for 41 s and no standby is reachable"}
+{"t": 1795367511.2305512, "kind": "alert", "msg": "a down for 42 s and no standby is reachable"}
+{"t": 1795367514.3036582, "kind": "alert", "msg": "a down for 45 s and no standby is reachable"}
+{"t": 1795367517.3678515, "kind": "alert", "msg": "a down for 48 s and no standby is reachable"}
+{"t": 1795367520.4182017, "kind": "alert", "msg": "a down for 51 s and no standby is reachable"}
+{"t": 1795367521.4892178, "kind": "alert", "msg": "a down for 52 s and no standby is reachable"}
+{"t": 1795367524.53516, "kind": "alert", "msg": "a down for 55 s and no standby is reachable"}
+{"t": 1795367525.6260066, "kind": "alert", "msg": "a down for 56 s and no standby is reachable"}
+{"t": 1795367528.6660838, "kind": "alert", "msg": "a down for 59 s and no standby is reachable"}
+{"t": 1795367529.736806, "kind": "alert", "msg": "a down for 60 s and no standby is reachable"}
+{"t": 1795367532.7770827, "kind": "alert", "msg": "a down for 63 s and no standby is reachable"}
+{"t": 1795367533.920687, "kind": "alert", "msg": "a down for 64 s and no standby is reachable"}
+{"t": 1795367536.9579866, "kind": "alert", "msg": "a down for 67 s and no standby is reachable"}
+{"t": 1795367538.0350974, "kind": "alert", "msg": "a down for 69 s and no standby is reachable"}
+{"t": 1795367541.0711696, "kind": "alert", "msg": "a down for 72 s and no standby is reachable"}
+{"t": 1795367542.1376975, "kind": "alert", "msg": "a down for 73 s and no standby is reachable"}
+{"t": 1795367545.320769, "kind": "alert", "msg": "a down for 76 s and no standby is reachable"}
+{"t": 1795367548.417194, "kind": "alert", "msg": "a down for 79 s and no standby is reachable"}
+{"t": 1795367551.4804218, "kind": "alert", "msg": "a down for 82 s and no standby is reachable"}
+{"t": 1795367552.5589406, "kind": "alert", "msg": "a down for 83 s and no standby is reachable"}
+{"t": 1795367555.6015167, "kind": "alert", "msg": "a down for 86 s and no standby is reachable"}
+{"t": 1795367556.6589634, "kind": "alert", "msg": "a down for 87 s and no standby is reachable"}
+{"t": 1795367559.6952167, "kind": "alert", "msg": "a down for 90 s and no standby is reachable"}
+{"t": 1795367560.7783124, "kind": "alert", "msg": "a down for 91 s and no standby is reachable"}
+{"t": 1795367563.8510485, "kind": "alert", "msg": "a down for 94 s and no standby is reachable"}
+{"t": 1795367564.9325805, "kind": "alert", "msg": "a down for 95 s and no standby is reachable"}
+{"t": 1795367567.9828823, "kind": "alert", "msg": "a down for 98 s and no standby is reachable"}
+{"t": 1795367569.0062587, "kind": "alert", "msg": "a down for 100 s and no standby is reachable"}
+{"t": 1795367572.0707707, "kind": "alert", "msg": "a down for 103 s and no standby is reachable"}
+{"t": 1795367573.105354, "kind": "alert", "msg": "a down for 104 s and no standby is reachable"}
+{"t": 1795367576.149355, "kind": "alert", "msg": "a down for 107 s and no standby is reachable"}
+{"t": 1795367577.2055602, "kind": "alert", "msg": "a down for 108 s and no standby is reachable"}
+{"t": 1795367580.24798, "kind": "alert", "msg": "a down for 111 s and no standby is reachable"}
+{"t": 1795367581.3034213, "kind": "alert", "msg": "a down for 112 s and no standby is reachable"}
+{"t": 1795367584.3478322, "kind": "alert", "msg": "a down for 115 s and no standby is reachable"}
+{"t": 1795367585.3953185, "kind": "alert", "msg": "a down for 116 s and no standby is reachable"}
+{"t": 1795367588.4338741, "kind": "alert", "msg": "a down for 119 s and no standby is reachable"}
+{"t": 1795367589.4886827, "kind": "alert", "msg": "a down for 120 s and no standby is reachable"}
+{"t": 1795367592.5312893, "kind": "alert", "msg": "a down for 123 s and no standby is reachable"}
+{"t": 1795367593.5817163, "kind": "alert", "msg": "a down for 124 s and no standby is reachable"}
+{"t": 1795367596.6382742, "kind": "alert", "msg": "a down for 127 s and no standby is reachable"}
+{"t": 1795367597.7113316, "kind": "alert", "msg": "a down for 128 s and no standby is reachable"}
+{"t": 1795367600.7644615, "kind": "alert", "msg": "a down for 131 s and no standby is reachable"}
+{"t": 1795367601.8430598, "kind": "alert", "msg": "a down for 132 s and no standby is reachable"}
+{"t": 1795367604.881794, "kind": "alert", "msg": "a down for 135 s and no standby is reachable"}
+{"t": 1795367605.9573457, "kind": "alert", "msg": "a down for 136 s and no standby is reachable"}
+{"t": 1795367608.996125, "kind": "alert", "msg": "a down for 139 s and no standby is reachable"}
+{"t": 1795367610.0350535, "kind": "alert", "msg": "a down for 141 s and no standby is reachable"}
+{"t": 1795367613.0897555, "kind": "alert", "msg": "a down for 144 s and no standby is reachable"}
+{"t": 1795367614.127476, "kind": "alert", "msg": "a down for 145 s and no standby is reachable"}
+{"t": 1795367617.1607177, "kind": "alert", "msg": "a down for 148 s and no standby is reachable"}
+{"t": 1795367618.2312374, "kind": "alert", "msg": "a down for 149 s and no standby is reachable"}
+{"t": 1795367621.259849, "kind": "alert", "msg": "a down for 152 s and no standby is reachable"}
+{"t": 1795367622.3205404, "kind": "alert", "msg": "a down for 153 s and no standby is reachable"}
+{"t": 1795367625.3591952, "kind": "alert", "msg": "a down for 156 s and no standby is reachable"}
+{"t": 1795367626.4204412, "kind": "alert", "msg": "a down for 157 s and no standby is reachable"}
+{"t": 1795367629.4550738, "kind": "alert", "msg": "a down for 160 s and no standby is reachable"}
+{"t": 1795367630.5177352, "kind": "alert", "msg": "a down for 161 s and no standby is reachable"}
+{"t": 1795367633.547286, "kind": "alert", "msg": "a down for 164 s and no standby is reachable"}
+{"t": 1795367634.6232457, "kind": "alert", "msg": "a down for 165 s and no standby is reachable"}
+{"t": 1795367637.6555066, "kind": "alert", "msg": "a down for 168 s and no standby is reachable"}
+{"t": 1795367638.7075036, "kind": "alert", "msg": "a down for 169 s and no standby is reachable"}
+{"t": 1795367641.7357051, "kind": "alert", "msg": "a down for 172 s and no standby is reachable"}
+{"t": 1795367642.805958, "kind": "alert", "msg": "a down for 173 s and no standby is reachable"}
+{"t": 1795367645.878399, "kind": "alert", "msg": "a down for 176 s and no standby is reachable"}
+{"t": 1795367648.935082, "kind": "alert", "msg": "a down for 179 s and no standby is reachable"}
+{"t": 1795367649.9633365, "kind": "alert", "msg": "a down for 180 s and no standby is reachable"}
+{"t": 1795367653.0293136, "kind": "alert", "msg": "a down for 184 s and no standby is reachable"}
+{"t": 1795367654.088515, "kind": "alert", "msg": "a down for 185 s and no standby is reachable"}
+{"t": 1795367657.1234295, "kind": "alert", "msg": "a down for 188 s and no standby is reachable"}
+{"t": 1795367658.2192917, "kind": "alert", "msg": "a down for 189 s and no standby is reachable"}
+{"t": 1795367661.2516346, "kind": "alert", "msg": "a down for 192 s and no standby is reachable"}
+{"t": 1795367662.320352, "kind": "alert", "msg": "a down for 193 s and no standby is reachable"}
+{"t": 1795367665.3679156, "kind": "alert", "msg": "a down for 196 s and no standby is reachable"}
+{"t": 1795367666.4275932, "kind": "alert", "msg": "a down for 197 s and no standby is reachable"}
+{"t": 1795367669.4706001, "kind": "alert", "msg": "a down for 200 s and no standby is reachable"}
+{"t": 1795367670.5261092, "kind": "alert", "msg": "a down for 201 s and no standby is reachable"}
+{"t": 1795367673.5580873, "kind": "alert", "msg": "a down for 204 s and no standby is reachable"}
+{"t": 1795367674.6214468, "kind": "alert", "msg": "a down for 205 s and no standby is reachable"}
+{"t": 1795367677.6656623, "kind": "alert", "msg": "a down for 208 s and no standby is reachable"}
+{"t": 1795367678.715995, "kind": "alert", "msg": "a down for 209 s and no standby is reachable"}
+{"t": 1795367681.8281317, "kind": "alert", "msg": "a down for 212 s and no standby is reachable"}
+{"t": 1795367684.855118, "kind": "alert", "msg": "a down for 215 s and no standby is reachable"}
+{"t": 1795367685.9487429, "kind": "alert", "msg": "a down for 216 s and no standby is reachable"}
+{"t": 1795367689.000268, "kind": "alert", "msg": "a down for 219 s and no standby is reachable"}
+{"t": 1795367690.034907, "kind": "alert", "msg": "a down for 221 s and no standby is reachable"}
+{"t": 1795367693.0706177, "kind": "alert", "msg": "a down for 224 s and no standby is reachable"}
+{"t": 1795367694.1314485, "kind": "alert", "msg": "a down for 225 s and no standby is reachable"}
+{"t": 1795367697.1547577, "kind": "alert", "msg": "a down for 228 s and no standby is reachable"}
+{"t": 1795367698.2307703, "kind": "alert", "msg": "a down for 229 s and no standby is reachable"}
+{"t": 1795367701.280129, "kind": "alert", "msg": "a down for 232 s and no standby is reachable"}
+{"t": 1795367702.31526, "kind": "alert", "msg": "a down for 233 s and no standby is reachable"}
+{"t": 1795367705.3606727, "kind": "alert", "msg": "a down for 236 s and no standby is reachable"}
+{"t": 1795367706.4190028, "kind": "alert", "msg": "a down for 237 s and no standby is reachable"}
+{"t": 1795367709.4589696, "kind": "alert", "msg": "a down for 240 s and no standby is reachable"}
+{"t": 1795367710.5061476, "kind": "alert", "msg": "a down for 241 s and no standby is reachable"}
+{"t": 1795367713.5416715, "kind": "alert", "msg": "a down for 244 s and no standby is reachable"}
+{"t": 1795367714.6280656, "kind": "alert", "msg": "a down for 245 s and no standby is reachable"}
+{"t": 1795367717.6667411, "kind": "alert", "msg": "a down for 248 s and no standby is reachable"}
+{"t": 1795367718.71516, "kind": "alert", "msg": "a down for 249 s and no standby is reachable"}
+{"t": 1795367721.7453818, "kind": "alert", "msg": "a down for 252 s and no standby is reachable"}
+{"t": 1795367722.799389, "kind": "alert", "msg": "a down for 253 s and no standby is reachable"}
+{"t": 1795367725.8384254, "kind": "alert", "msg": "a down for 256 s and no standby is reachable"}
+{"t": 1795367726.8993635, "kind": "alert", "msg": "a down for 257 s and no standby is reachable"}
+{"t": 1795367729.9419968, "kind": "alert", "msg": "a down for 260 s and no standby is reachable"}
+{"t": 1795367730.9959686, "kind": "alert", "msg": "a down for 261 s and no standby is reachable"}
+{"t": 1795367734.036574, "kind": "alert", "msg": "a down for 265 s and no standby is reachable"}
+{"t": 1795367735.0958803, "kind": "alert", "msg": "a down for 266 s and no standby is reachable"}
+{"t": 1795367738.1255715, "kind": "alert", "msg": "a down for 269 s and no standby is reachable"}
+{"t": 1795367739.186121, "kind": "alert", "msg": "a down for 270 s and no standby is reachable"}
+{"t": 1795367742.2260456, "kind": "alert", "msg": "a down for 273 s and no standby is reachable"}
+{"t": 1795367743.2782247, "kind": "alert", "msg": "a down for 274 s and no standby is reachable"}
+{"t": 1795367746.3191495, "kind": "alert", "msg": "a down for 277 s and no standby is reachable"}
+{"t": 1795367747.376734, "kind": "alert", "msg": "a down for 278 s and no standby is reachable"}
+{"t": 1795367750.425131, "kind": "alert", "msg": "a down for 281 s and no standby is reachable"}
+{"t": 1795367751.4732494, "kind": "alert", "msg": "a down for 282 s and no standby is reachable"}
+{"t": 1795367754.5222745, "kind": "alert", "msg": "a down for 285 s and no standby is reachable"}
+{"t": 1795367755.570241, "kind": "alert", "msg": "a down for 286 s and no standby is reachable"}
+{"t": 1795367758.6086714, "kind": "alert", "msg": "a down for 289 s and no standby is reachable"}
+{"t": 1795367759.6671429, "kind": "alert", "msg": "a down for 290 s and no standby is reachable"}
+{"t": 1795367762.7101364, "kind": "alert", "msg": "a down for 293 s and no standby is reachable"}
+{"t": 1795367763.7774734, "kind": "alert", "msg": "a down for 294 s and no standby is reachable"}
+{"t": 1795367766.802822, "kind": "alert", "msg": "a down for 297 s and no standby is reachable"}
+{"t": 1795367767.854447, "kind": "alert", "msg": "a down for 298 s and no standby is reachable"}
+{"t": 1795367771.4427402, "kind": "alert", "msg": "a down for 302 s and no standby is reachable"}
+{"t": 1795367774.5245695, "kind": "alert", "msg": "a down for 305 s and no standby is reachable"}
+{"t": 1795367777.572967, "kind": "alert", "msg": "a down for 308 s and no standby is reachable"}
+{"t": 1795367778.6199973, "kind": "alert", "msg": "a down for 309 s and no standby is reachable"}
+{"t": 1795367781.711019, "kind": "alert", "msg": "a down for 312 s and no standby is reachable"}
+{"t": 1795367782.7752936, "kind": "alert", "msg": "a down for 313 s and no standby is reachable"}
+{"t": 1795367785.8210232, "kind": "alert", "msg": "a down for 316 s and no standby is reachable"}
+{"t": 1795367786.8662097, "kind": "alert", "msg": "a down for 317 s and no standby is reachable"}
+{"t": 1795367789.9094932, "kind": "alert", "msg": "a down for 320 s and no standby is reachable"}
+{"t": 1795367790.961605, "kind": "alert", "msg": "a down for 321 s and no standby is reachable"}
+{"t": 1795367793.9902873, "kind": "alert", "msg": "a down for 324 s and no standby is reachable"}
+{"t": 1795367795.0653424, "kind": "alert", "msg": "a down for 326 s and no standby is reachable"}
+{"t": 1795367798.111435, "kind": "alert", "msg": "a down for 329 s and no standby is reachable"}
+{"t": 1795367799.156268, "kind": "alert", "msg": "a down for 330 s and no standby is reachable"}
+{"t": 1795367802.2032995, "kind": "alert", "msg": "a down for 333 s and no standby is reachable"}
+{"t": 1795367803.2503786, "kind": "alert", "msg": "a down for 334 s and no standby is reachable"}
+{"t": 1795367806.3485107, "kind": "alert", "msg": "a down for 337 s and no standby is reachable"}
+{"t": 1795367809.4140182, "kind": "alert", "msg": "a down for 340 s and no standby is reachable"}
+{"t": 1795367810.481782, "kind": "alert", "msg": "a down for 341 s and no standby is reachable"}
+{"t": 1795367813.523859, "kind": "alert", "msg": "a down for 344 s and no standby is reachable"}
+{"t": 1795367814.5817044, "kind": "alert", "msg": "a down for 345 s and no standby is reachable"}
+{"t": 1795367817.6089592, "kind": "alert", "msg": "a down for 348 s and no standby is reachable"}
+{"t": 1795367818.6750019, "kind": "alert", "msg": "a down for 349 s and no standby is reachable"}
+{"t": 1795367821.705811, "kind": "alert", "msg": "a down for 352 s and no standby is reachable"}
+{"t": 1795367822.837396, "kind": "alert", "msg": "a down for 353 s and no standby is reachable"}
+{"t": 1795367825.8839712, "kind": "alert", "msg": "a down for 356 s and no standby is reachable"}
+{"t": 1795367826.9282982, "kind": "alert", "msg": "a down for 357 s and no standby is reachable"}
+{"t": 1795367829.9626904, "kind": "alert", "msg": "a down for 360 s and no standby is reachable"}
+{"t": 1795367831.0274513, "kind": "alert", "msg": "a down for 362 s and no standby is reachable"}
+{"t": 1795367834.061607, "kind": "alert", "msg": "a down for 365 s and no standby is reachable"}
+{"t": 1795367835.124235, "kind": "alert", "msg": "a down for 366 s and no standby is reachable"}
+{"t": 1795367838.146613, "kind": "alert", "msg": "a down for 369 s and no standby is reachable"}
+{"t": 1795367839.2307963, "kind": "alert", "msg": "a down for 370 s and no standby is reachable"}
+{"t": 1795367842.2570927, "kind": "alert", "msg": "a down for 373 s and no standby is reachable"}
+{"t": 1795367843.3114173, "kind": "alert", "msg": "a down for 374 s and no standby is reachable"}
+{"t": 1795367846.368328, "kind": "alert", "msg": "a down for 377 s and no standby is reachable"}
+{"t": 1795367847.4126635, "kind": "alert", "msg": "a down for 378 s and no standby is reachable"}
+{"t": 1795367850.4915907, "kind": "alert", "msg": "a down for 381 s and no standby is reachable"}
+{"t": 1795367853.528782, "kind": "alert", "msg": "a down for 384 s and no standby is reachable"}
+{"t": 1795367854.5786169, "kind": "alert", "msg": "a down for 385 s and no standby is reachable"}
+{"t": 1795367857.605138, "kind": "alert", "msg": "a down for 388 s and no standby is reachable"}
+{"t": 1795367858.6685388, "kind": "alert", "msg": "a down for 389 s and no standby is reachable"}
+{"t": 1795367861.7233021, "kind": "alert", "msg": "a down for 392 s and no standby is reachable"}
+{"t": 1795367862.7797585, "kind": "alert", "msg": "a down for 393 s and no standby is reachable"}
+{"t": 1795367865.8206565, "kind": "alert", "msg": "a down for 396 s and no standby is reachable"}
+{"t": 1795367866.8691251, "kind": "alert", "msg": "a down for 397 s and no standby is reachable"}
+{"t": 1795367870.0145133, "kind": "alert", "msg": "a down for 401 s and no standby is reachable"}
+{"t": 1795367873.0990574, "kind": "alert", "msg": "a down for 404 s and no standby is reachable"}
+{"t": 1795367874.1572058, "kind": "alert", "msg": "a down for 405 s and no standby is reachable"}
+{"t": 1795367877.200866, "kind": "alert", "msg": "a down for 408 s and no standby is reachable"}
+{"t": 1795367878.2615538, "kind": "alert", "msg": "a down for 409 s and no standby is reachable"}
+{"t": 1795367881.3198647, "kind": "alert", "msg": "a down for 412 s and no standby is reachable"}
+{"t": 1795367882.4671497, "kind": "alert", "msg": "a down for 413 s and no standby is reachable"}
+{"t": 1795367885.5444853, "kind": "alert", "msg": "a down for 416 s and no standby is reachable"}
+{"t": 1795367886.5889769, "kind": "alert", "msg": "a down for 417 s and no standby is reachable"}
+{"t": 1795367889.6497838, "kind": "alert", "msg": "a down for 420 s and no standby is reachable"}
+{"t": 1795367892.6932497, "kind": "alert", "msg": "a down for 423 s and no standby is reachable"}
+{"t": 1795367893.746215, "kind": "alert", "msg": "a down for 424 s and no standby is reachable"}
+{"t": 1795367896.7746677, "kind": "alert", "msg": "a down for 427 s and no standby is reachable"}
+{"t": 1795367897.8466072, "kind": "alert", "msg": "a down for 428 s and no standby is reachable"}
+{"t": 1795367900.882411, "kind": "alert", "msg": "a down for 431 s and no standby is reachable"}
+{"t": 1795367901.9630203, "kind": "alert", "msg": "a down for 432 s and no standby is reachable"}
+{"t": 1795367905.1601477, "kind": "alert", "msg": "a down for 436 s and no standby is reachable"}
+{"t": 1795367908.2840552, "kind": "alert", "msg": "a down for 439 s and no standby is reachable"}
+{"t": 1795367911.3323205, "kind": "alert", "msg": "a down for 442 s and no standby is reachable"}
+{"t": 1795367912.3705108, "kind": "alert", "msg": "a down for 443 s and no standby is reachable"}
+{"t": 1795367915.4074624, "kind": "alert", "msg": "a down for 446 s and no standby is reachable"}
+{"t": 1795367916.3725517, "kind": "alert", "msg": "a down for 447 s and no standby is reachable"}
+{"t": 1795367919.4197195, "kind": "alert", "msg": "a down for 450 s and no standby is reachable"}
+{"t": 1795367920.4584422, "kind": "alert", "msg": "a down for 451 s and no standby is reachable"}
+{"t": 1795367923.4960427, "kind": "alert", "msg": "a down for 454 s and no standby is reachable"}
+{"t": 1795367924.5620725, "kind": "alert", "msg": "a down for 455 s and no standby is reachable"}
+{"t": 1795367927.5982583, "kind": "alert", "msg": "a down for 458 s and no standby is reachable"}
+{"t": 1795367928.6649208, "kind": "alert", "msg": "a down for 459 s and no standby is reachable"}
+{"t": 1795367931.7110083, "kind": "alert", "msg": "a down for 462 s and no standby is reachable"}
+{"t": 1795367932.744194, "kind": "alert", "msg": "a down for 463 s and no standby is reachable"}
+{"t": 1795367935.7934575, "kind": "alert", "msg": "a down for 466 s and no standby is reachable"}
+{"t": 1795367936.8473125, "kind": "alert", "msg": "a down for 467 s and no standby is reachable"}
+{"t": 1795367939.885082, "kind": "alert", "msg": "a down for 470 s and no standby is reachable"}
+{"t": 1795367940.9501104, "kind": "alert", "msg": "a down for 471 s and no standby is reachable"}
+{"t": 1795367943.9906466, "kind": "alert", "msg": "a down for 474 s and no standby is reachable"}
+{"t": 1795367945.042871, "kind": "alert", "msg": "a down for 476 s and no standby is reachable"}
+{"t": 1795367948.0735097, "kind": "alert", "msg": "a down for 479 s and no standby is reachable"}
+{"t": 1795367949.1333764, "kind": "alert", "msg": "a down for 480 s and no standby is reachable"}
+{"t": 1795367952.1588702, "kind": "alert", "msg": "a down for 483 s and no standby is reachable"}
+{"t": 1795367953.2308261, "kind": "alert", "msg": "a down for 484 s and no standby is reachable"}
+{"t": 1795367956.2740383, "kind": "alert", "msg": "a down for 487 s and no standby is reachable"}
+{"t": 1795367957.3213394, "kind": "alert", "msg": "a down for 488 s and no standby is reachable"}
+{"t": 1795367960.3524303, "kind": "alert", "msg": "a down for 491 s and no standby is reachable"}
+{"t": 1795367961.4301934, "kind": "alert", "msg": "a down for 492 s and no standby is reachable"}
+{"t": 1795367964.4637911, "kind": "alert", "msg": "a down for 495 s and no standby is reachable"}
+{"t": 1795367965.5157704, "kind": "alert", "msg": "a down for 496 s and no standby is reachable"}
+{"t": 1795367968.550337, "kind": "alert", "msg": "a down for 499 s and no standby is reachable"}
+{"t": 1795367969.615751, "kind": "alert", "msg": "a down for 500 s and no standby is reachable"}
+{"t": 1795367972.6673868, "kind": "alert", "msg": "a down for 503 s and no standby is reachable"}
+{"t": 1795367973.7083533, "kind": "alert", "msg": "a down for 504 s and no standby is reachable"}
+{"t": 1795367976.738241, "kind": "alert", "msg": "a down for 507 s and no standby is reachable"}
+{"t": 1795367977.80988, "kind": "alert", "msg": "a down for 508 s and no standby is reachable"}
+{"t": 1795367980.839406, "kind": "alert", "msg": "a down for 511 s and no standby is reachable"}
+{"t": 1795367981.909459, "kind": "alert", "msg": "a down for 512 s and no standby is reachable"}
+{"t": 1795367984.955127, "kind": "alert", "msg": "a down for 515 s and no standby is reachable"}
+{"t": 1795367985.994708, "kind": "alert", "msg": "a down for 516 s and no standby is reachable"}
+{"t": 1795367989.048216, "kind": "alert", "msg": "a down for 520 s and no standby is reachable"}
+{"t": 1795367990.107917, "kind": "alert", "msg": "a down for 521 s and no standby is reachable"}
+{"t": 1795367993.145147, "kind": "alert", "msg": "a down for 524 s and no standby is reachable"}
+{"t": 1795367994.1933203, "kind": "alert", "msg": "a down for 525 s and no standby is reachable"}
+{"t": 1795367997.2187805, "kind": "alert", "msg": "a down for 528 s and no standby is reachable"}
+{"t": 1795367998.2904253, "kind": "alert", "msg": "a down for 529 s and no standby is reachable"}
+{"t": 1795368001.3148258, "kind": "alert", "msg": "a down for 532 s and no standby is reachable"}
+{"t": 1795368002.380763, "kind": "alert", "msg": "a down for 533 s and no standby is reachable"}
+{"t": 1795368005.4153328, "kind": "alert", "msg": "a down for 536 s and no standby is reachable"}
+{"t": 1795368006.4750435, "kind": "alert", "msg": "a down for 537 s and no standby is reachable"}
+{"t": 1795368009.5128477, "kind": "alert", "msg": "a down for 540 s and no standby is reachable"}
+{"t": 1795368010.5729728, "kind": "alert", "msg": "a down for 541 s and no standby is reachable"}
+{"t": 1795368013.6085207, "kind": "alert", "msg": "a down for 544 s and no standby is reachable"}
+{"t": 1795368014.6797264, "kind": "alert", "msg": "a down for 545 s and no standby is reachable"}
+{"t": 1795368017.7139947, "kind": "alert", "msg": "a down for 548 s and no standby is reachable"}
+{"t": 1795368018.7563593, "kind": "alert", "msg": "a down for 549 s and no standby is reachable"}
+{"t": 1795368021.7913566, "kind": "alert", "msg": "a down for 552 s and no standby is reachable"}
+{"t": 1795368022.8646905, "kind": "alert", "msg": "a down for 553 s and no standby is reachable"}
+{"t": 1795368025.898755, "kind": "alert", "msg": "a down for 556 s and no standby is reachable"}
+{"t": 1795368026.968152, "kind": "alert", "msg": "a down for 557 s and no standby is reachable"}
+{"t": 1795368030.0034297, "kind": "alert", "msg": "a down for 560 s and no standby is reachable"}
+{"t": 1795368031.048092, "kind": "alert", "msg": "a down for 562 s and no standby is reachable"}
+{"t": 1795368034.0795832, "kind": "alert", "msg": "a down for 565 s and no standby is reachable"}
+{"t": 1795368035.1546636, "kind": "alert", "msg": "a down for 566 s and no standby is reachable"}
+{"t": 1795368038.1838815, "kind": "alert", "msg": "a down for 569 s and no standby is reachable"}
+{"t": 1795368039.248109, "kind": "alert", "msg": "a down for 570 s and no standby is reachable"}
+{"t": 1795368042.276673, "kind": "alert", "msg": "a down for 573 s and no standby is reachable"}

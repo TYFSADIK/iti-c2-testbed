@@ -1,0 +1,11 @@
+event controller started, active site a, stale none
+event a unhealthy (code=None, db=-)
+event DNS c2.lab -> 172.30.0.8 (b)
+event failover a -> b after 90 s of failure
+event promote b: exit 0 cluster.postgresql.cnpg.io/c2db patched
+event b is serving writes, failover took 93.5 s
+event controller started, active site b, stale ['a']
+event b unhealthy (code=503, db=primary)
+event b recovered before failover
+event b unhealthy (code=503, db=down)
+event b recovered before failover

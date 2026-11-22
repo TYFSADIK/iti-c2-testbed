@@ -1,0 +1,18 @@
+- name: "Site B: copy site A's replication certificate, build the replica cluster, deploy the app"
+  ansible.builtin.shell: |
+    set -euo pipefail
+    A={{ kube_dir }}/site-a.yaml; B={{ kube_dir }}/site-b.yaml
+    tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+    kubectl --kubeconfig $A -n c2 get secret c2db-ca -o jsonpath='{.data.ca\.crt}' | base64 -d > $tmp/ca.crt
+    kubectl --kubeconfig $A -n c2 get secret c2db-replication -o jsonpath='{.data.tls\.crt}' | base64 -d > $tmp/tls.crt
+    kubectl --kubeconfig $A -n c2 get secret c2db-replication -o jsonpath='{.data.tls\.key}' | base64 -d > $tmp/tls.key
+    kubectl --kubeconfig $B -n c2 create secret generic site-a-ca --from-file=ca.crt=$tmp/ca.crt --dry-run=client -o yaml | kubectl --kubeconfig $B apply -f -
+    kubectl --kubeconfig $B -n c2 create secret tls site-a-replication --cert=$tmp/tls.crt --key=$tmp/tls.key --dry-run=client -o yaml | kubectl --kubeconfig $B apply -f -
+    export KUBECONFIG=$B
+    python3 {{ playbook_dir }}/../tools/render.py {{ playbook_dir }}/../k8s/site-standby/cluster.yaml | tee {{ kube_dir }}/site-b-db.yaml | kubectl apply -f -
+    kubectl -n c2 wait cluster/c2db --for=condition=Ready --timeout=20m
+    python3 {{ playbook_dir }}/../tools/render.py {{ playbook_dir }}/../k8s/base/c2board.yaml | kubectl apply -f -
+  args: {executable: /bin/bash}
+  environment: "{{ labenv | combine({'SITE': 'b', 'APP_IMAGE': app_image, 'APP_VIP': app_vip.b, 'WITNESS_URL': 'http://' ~ mgmt_ip ~ ':8090',
+                   'DB_SIZE': '5Gi', 'DB_STORAGE_CLASS': 'longhorn', 'DB_INSTANCES': '2', 'SITE_A_DB_HOST': db_replication_vip.a}) }}"
+  changed_when: true

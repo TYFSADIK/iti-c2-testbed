@@ -1,0 +1,79 @@
+[
+  {
+    "attempts": 231,
+    "ok": 230,
+    "availability_pct": 99.57,
+    "rto_s": 37.4,
+    "longest_outage_s": 2.1,
+    "sites": "a",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "baseline"
+  },
+  {
+    "attempts": 121,
+    "ok": 121,
+    "availability_pct": 100.0,
+    "rto_s": 0.0,
+    "longest_outage_s": 0.0,
+    "sites": "a",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "app pod killed"
+  },
+  {
+    "attempts": 178,
+    "ok": 178,
+    "availability_pct": 100.0,
+    "rto_s": 0.0,
+    "longest_outage_s": 0.0,
+    "sites": "a",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "database primary pod killed"
+  },
+  {
+    "attempts": 272,
+    "ok": 202,
+    "availability_pct": 74.26,
+    "rto_s": 30.1,
+    "longest_outage_s": 29.0,
+    "sites": "a",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "node powered off (k3d-site-a-agent-0)"
+  },
+  {
+    "attempts": 235,
+    "ok": 235,
+    "availability_pct": 100.0,
+    "rto_s": 0.0,
+    "longest_outage_s": 0.0,
+    "sites": "a",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "degraded WAN (80 ms, 2% loss)"
+  },
+  {
+    "attempts": 223,
+    "ok": 114,
+    "availability_pct": 51.12,
+    "rto_s": 74.0,
+    "longest_outage_s": 54.5,
+    "sites": "a",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "witness (site C) lost for 60 s"
+  },
+  {
+    "attempts": 228,
+    "ok": 170,
+    "availability_pct": 74.56,
+    "rto_s": 96.5,
+    "longest_outage_s": 95.9,
+    "sites": "a -> b",
+    "lost_writes": 0,
+    "lost_window_s": 0.0,
+    "scenario": "site A lost (network cut)"
+  }
+]

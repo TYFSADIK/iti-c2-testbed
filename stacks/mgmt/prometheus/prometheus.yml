@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: controller
+    static_configs: [{targets: ["controller:8090"]}]
+  - job_name: prober
+    scrape_interval: 1s
+    static_configs: [{targets: ["prober:9105"]}]
+  # Each site's in-cluster Prometheus agent remote-writes here (receiver enabled),
+  # labelled with site="a" / "b"; see k8s/monitoring/.

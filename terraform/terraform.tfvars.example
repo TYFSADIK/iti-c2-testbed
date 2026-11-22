@@ -1,0 +1,6 @@
+proxmox_endpoint  = "https://192.168.1.10:8006/"
+proxmox_api_token = "terraform@pve!c2lab=00000000-0000-0000-0000-000000000000"
+ssh_public_key    = "ssh-ed25519 AAAA... you@laptop"
+# One host per site (physical option B):
+# site_nodes = { a = "pve1", b = "pve2", c = "pve3" }
+# lite = true

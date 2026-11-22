@@ -1,0 +1,39 @@
+- name: Docker
+  ansible.builtin.apt:
+    name: [docker.io, docker-compose-v2]
+
+- name: Docker network for the stack (site C LAN is the host network; the stack uses its own bridge)
+  ansible.builtin.command: docker network create --subnet 172.30.0.0/16 --ip-range 172.30.0.0/17 c2net
+  register: net
+  changed_when: net.rc == 0
+  failed_when: net.rc != 0 and 'already exists' not in net.stderr
+
+- name: Stack files
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../stacks/mgmt/"
+    dest: /opt/c2mgmt/
+    mode: preserve
+
+- name: Kubeconfigs for the failover controller
+  ansible.builtin.copy:
+    src: "{{ kube_dir }}/"
+    dest: /opt/c2mgmt/kube/
+    mode: "0600"
+  when: (kube_dir ~ '/site-a.yaml') is exists
+
+- name: Environment
+  ansible.builtin.template:
+    src: env.j2
+    dest: /opt/c2mgmt/.env
+    mode: "0600"
+
+- name: Publish DNS, S3, Prometheus, Loki and the witness on the site C address
+  ansible.builtin.template:
+    src: override.yml.j2
+    dest: /opt/c2mgmt/docker-compose.override.yml
+    mode: "0644"
+
+- name: Start the management stack
+  ansible.builtin.command: docker compose up -d
+  args: {chdir: /opt/c2mgmt}
+  changed_when: true

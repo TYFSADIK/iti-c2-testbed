@@ -1,0 +1,66 @@
+# Site A: the primary CloudNativePG cluster. Streams to site B, archives WAL and
+# base backups to the S3 store (SeaweedFS) at site C.
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: c2db
+  namespace: c2
+spec:
+  instances: ${DB_INSTANCES}
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.4
+  primaryUpdateStrategy: unsupervised
+  # Synchronous in-site replica: a promoted local replica holds every acknowledged
+  # write, so the cross-site standby can follow the new timeline (rehearsal run 2).
+  minSyncReplicas: 1
+  maxSyncReplicas: 1
+  storage:
+    size: ${DB_SIZE}
+    storageClass: ${DB_STORAGE_CLASS}
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: c2-db-credentials
+  postgresql:
+    parameters:
+      wal_keep_size: "1GB"
+      archive_timeout: "60s"
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+  backup:
+    retentionPolicy: "7d"
+    barmanObjectStore:
+      destinationPath: s3://c2-backups/site-a
+      endpointURL: ${S3_ENDPOINT}
+      s3Credentials:
+        accessKeyId: {name: c2-backup-s3, key: ACCESS_KEY_ID}
+        secretAccessKey: {name: c2-backup-s3, key: SECRET_ACCESS_KEY}
+      wal: {compression: gzip}
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: c2db-hourly
+  namespace: c2
+spec:
+  schedule: "0 0 * * * *"
+  immediate: true
+  backupOwnerReference: self
+  cluster:
+    name: c2db
+---
+# The primary's endpoint for the standby site (replication over the WireGuard WAN).
+apiVersion: v1
+kind: Service
+metadata:
+  name: c2db-replication
+  namespace: c2
+spec:
+  type: LoadBalancer
+  selector:
+    cnpg.io/cluster: c2db
+    cnpg.io/instanceRole: primary
+  ports:
+    - {name: postgres, port: 5432, targetPort: 5432}

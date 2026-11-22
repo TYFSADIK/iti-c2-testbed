@@ -1,0 +1,39 @@
+#!/usr/sbin/nft -f
+# Site {{ site | upper }} router. Default deny; sites talk to each other only through WireGuard.
+flush ruleset
+
+define LAN = {{ site_prefixes[site] }}.0/24
+define WGNET = {{ wg_prefix }}.0/24
+
+table inet filter {
+  chain input {
+    type filter hook input priority 0; policy drop;
+    ct state established,related accept
+    iif lo accept
+    ip saddr $LAN accept
+    ip saddr $WGNET accept
+    udp dport {{ wg_port }} accept           # WireGuard from the other routers
+    icmp type echo-request limit rate 10/second accept
+  }
+  chain forward {
+    type filter hook forward priority 0; policy drop;
+    ct state established,related accept
+    iifname "eth0" oifname "wg0" accept       # site LAN to other sites (and, at A/B, the internet via C)
+    iifname "wg0" oifname "eth0" accept       # other sites to this site LAN
+{% if site == 'c' %}
+    iifname { "eth0", "wg0" } oifname "eth2" accept   # internet out through site C only
+{% endif %}
+  }
+  chain output {
+    type filter hook output priority 0; policy accept;
+  }
+}
+{% if site == 'c' %}
+
+table ip nat {
+  chain postrouting {
+    type nat hook postrouting priority 100;
+    oifname "eth2" masquerade
+  }
+}
+{% endif %}

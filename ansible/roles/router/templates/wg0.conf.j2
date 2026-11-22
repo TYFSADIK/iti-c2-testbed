@@ -1,0 +1,22 @@
+# Full mesh between the three site routers over the transit VLAN.
+{% set idx = {'a': 1, 'b': 2, 'c': 3}[site] %}
+[Interface]
+Address = {{ wg_prefix }}.{{ idx }}/24
+ListenPort = {{ wg_port }}
+PrivateKey = {{ wg_priv.content | b64decode | trim }}
+
+{% for peer in groups['routers'] if peer != inventory_hostname %}
+{% set p = hostvars[peer] %}
+[Peer]
+# {{ peer }}
+PublicKey = {{ p.wg_public_key }}
+Endpoint = {{ p.transit_ip }}:{{ wg_port }}
+PersistentKeepalive = 15
+{% if p.site == 'c' and site != 'c' %}
+# site C also carries the internet route for sites A and B
+AllowedIPs = {{ wg_prefix }}.3/32, {{ site_prefixes['c'] }}.0/24, 0.0.0.0/1, 128.0.0.0/1
+{% else %}
+AllowedIPs = {{ wg_prefix }}.{{ {'a': 1, 'b': 2, 'c': 3}[p.site] }}/32, {{ site_prefixes[p.site] }}.0/24
+{% endif %}
+
+{% endfor %}

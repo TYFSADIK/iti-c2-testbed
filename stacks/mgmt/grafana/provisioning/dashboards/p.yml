@@ -1,0 +1,3 @@
+apiVersion: 1
+providers:
+  - {name: c2, folder: C2 infrastructure, type: file, options: {path: /var/lib/grafana/dashboards}}

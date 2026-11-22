@@ -1,0 +1,11 @@
+{"t": 1795369753.6299036, "kind": "event", "msg": "controller started, active site a, stale none"}
+{"t": 1795370101.0728247, "kind": "event", "msg": "a unhealthy (code=None, db=-)"}
+{"t": 1795370191.166702, "kind": "event", "msg": "DNS c2.lab -> 172.30.0.8 (b)"}
+{"t": 1795370191.1728787, "kind": "event", "msg": "failover a -> b after 90 s of failure"}
+{"t": 1795370193.62755, "kind": "event", "msg": "promote b: exit 0 cluster.postgresql.cnpg.io/c2db patched"}
+{"t": 1795370194.5329063, "kind": "event", "msg": "b is serving writes, failover took 93.5 s"}
+{"t": 1795370301.248127, "kind": "event", "msg": "controller started, active site b, stale ['a']"}
+{"t": 1795370301.3727214, "kind": "event", "msg": "b unhealthy (code=503, db=primary)"}
+{"t": 1795370302.3921926, "kind": "event", "msg": "b recovered before failover"}
+{"t": 1795370377.1047966, "kind": "event", "msg": "b unhealthy (code=503, db=down)"}
+{"t": 1795370380.1117632, "kind": "event", "msg": "b recovered before failover"}

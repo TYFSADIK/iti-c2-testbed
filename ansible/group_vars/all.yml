@@ -1,0 +1,18 @@
+k3s_version: v1.30.6+k3s1
+wg_port: 51820
+wg_prefix: "10.99.0"
+# MetalLB pools and fixed service addresses per site
+metallb_pool: {a: "10.110.0.80-10.110.0.89", b: "10.120.0.80-10.120.0.89"}
+app_vip: {a: "10.110.0.80", b: "10.120.0.80"}
+db_replication_vip: {a: "10.110.0.81", b: "10.120.0.81"}
+mgmt_ip: "10.130.0.10"
+app_image: ghcr.io/tyfsadik/iti-c2-testbed:latest
+chart_versions:
+  metallb: 0.14.8
+  longhorn: 1.7.2
+  alloy: 0.10.0
+  kube_state_metrics: 5.27.0
+  velero: 8.0.0
+cnpg_manifest: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.24/releases/cnpg-1.24.1.yaml
+secrets_file: "{{ playbook_dir }}/../secrets/lab.env"
+kube_dir: "{{ playbook_dir }}/../secrets/kube"

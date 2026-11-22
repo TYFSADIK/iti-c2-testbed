@@ -1,0 +1,15 @@
+# Global service name for the C2 Board. The failover controller rewrites
+# /etc/coredns/zones/hosts; the short TTL makes clients follow a failover quickly.
+lab:53 {
+    hosts /etc/coredns/zones/hosts {
+        ttl 2
+        reload 1s
+        fallthrough
+    }
+    log
+    errors
+}
+.:53 {
+    forward . 1.1.1.1
+    errors
+}

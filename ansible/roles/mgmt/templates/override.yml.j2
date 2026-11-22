@@ -1,0 +1,14 @@
+# Production ports on the site C LAN address ({{ ansible_host }}).
+services:
+  dns:
+    ports: ["{{ ansible_host }}:53:53/udp", "{{ ansible_host }}:53:53/tcp"]
+  s3:
+    ports: ["{{ ansible_host }}:9000:9000"]
+  controller:
+    ports: ["{{ ansible_host }}:8090:8090"]
+  prometheus:
+    ports: ["{{ ansible_host }}:9090:9090"]
+  loki:
+    ports: ["{{ ansible_host }}:3100:3100"]
+  grafana:
+    ports: ["{{ ansible_host }}:3000:3000"]

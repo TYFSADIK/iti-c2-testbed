@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Fault injection on this site's WAN (the transit link to the other sites).
+#   wan-impair status
+#   wan-impair degrade <delay_ms> <loss_pct>     e.g. wan-impair degrade 80 2
+#   wan-impair cut                                drop all inter-site traffic (site isolation)
+#   wan-impair clear
+set -euo pipefail
+DEV=${WAN_DEV:-eth1}
+case "${1:-status}" in
+  status) tc qdisc show dev "$DEV"; nft list table inet wancut 2>/dev/null || echo "not cut" ;;
+  degrade) tc qdisc replace dev "$DEV" root netem delay "${2:?delay ms}ms" "$(( ${2} / 8 ))ms" loss "${3:?loss %}%" ;;
+  cut) nft -f - <<'NFT'
+table inet wancut {
+  chain in  { type filter hook input priority -10; policy accept; iifname "eth1" drop; }
+  chain out { type filter hook output priority -10; policy accept; oifname "eth1" drop; }
+}
+NFT
+  ;;
+  clear) tc qdisc del dev "$DEV" root 2>/dev/null || true; nft delete table inet wancut 2>/dev/null || true ;;
+  *) echo "usage: $0 status|degrade <ms> <pct>|cut|clear"; exit 1 ;;
+esac

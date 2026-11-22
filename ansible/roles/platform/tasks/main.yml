@@ -1,0 +1,22 @@
+# Runs on this machine against both clusters (kubeconfigs fetched by the k3s role).
+- name: Secrets as environment
+  ansible.builtin.set_fact:
+    labenv: "{{ dict(lookup('ansible.builtin.file', secrets_file).splitlines() | select('match', '^[A-Z_]+=') | map('split', '=', 1)) }}"
+
+- name: Helm repositories
+  ansible.builtin.shell: |
+    helm repo add metallb https://metallb.github.io/metallb
+    helm repo add longhorn https://charts.longhorn.io
+    helm repo add grafana https://grafana.github.io/helm-charts
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
+    helm repo update
+  changed_when: false
+
+- name: Platform per site
+  ansible.builtin.include_tasks: site.yml
+  loop: [a, b]
+  loop_control: {loop_var: s}
+
+- name: Site B replicates from site A
+  ansible.builtin.include_tasks: replica.yml
